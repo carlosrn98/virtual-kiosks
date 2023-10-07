@@ -13,14 +13,31 @@ services:
     depends_on:
       - db
     image: "virtual-kiosks-web:v1"
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8000/client/", "||", "exit", "1"]
+    #   interval: 40s
+    #   timeout: 30s
+    #   retries: 3
+    #   start_period: 60s
   db:
-    image: postgres:15
+    image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=hello_django
-      - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hello_django_dev
+      - POSTGRES_USER=postgres
+      # - PGUSER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=virtual_kiosks_dev
+    restart: always
+    ports:
+      - 5432:5432
+    user: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "$${POSTGRES_DB}", "-U", "$${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
 
 volumes:
   postgres_data:
