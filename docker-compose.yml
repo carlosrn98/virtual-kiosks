@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: "/bin/bash -c 'python manage.py runserver 0.0.0.0:8000' ; 'python manage.py migrate'"
     volumes:
       - ./app/:/usr/src/app/
     ports:
@@ -25,7 +25,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=postgres
-      # - PGUSER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=virtual_kiosks_dev
     restart: always
