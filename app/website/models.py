@@ -3,6 +3,7 @@ from django.contrib.auth.models import User  # You can customize the User model 
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
+    description = models.TextField()
     # Add other restaurant-related fields like address, contact info, etc.
 
 class Dish(models.Model):
