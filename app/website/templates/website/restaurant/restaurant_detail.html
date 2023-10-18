@@ -1,0 +1,10 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+    {% if dishes %}
+        {% for dish in dishes %}
+            <h1>{{ dish.restaurant.name }}</h1>
+            <p>{{ dish.name }} - {{ dish.price }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}
