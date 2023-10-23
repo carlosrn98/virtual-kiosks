@@ -1,0 +1,16 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+    <h1>Tu orden contiene {{ request.session.order_count }} platillos:
+    {% if order_data %}
+        {% for row in order_data %}
+            <ul>
+                <li>{{ row.dish.name }} - {{ row.dish.price }}</li>
+            </ul>
+        {% endfor %}
+        <p>Total: {{ total }}</p>
+        <p>Estatus: {{ status }}
+    {% else %}
+        <p>No hay platillos en tu orden.</p>
+    {% endif %}
+{% endblock content %}

@@ -4,7 +4,9 @@
     {% if dishes %}
         {% for dish in dishes %}
             <h1>{{ dish.restaurant.name }}</h1>
-            <p>{{ dish.name }} - {{ dish.price }}</p>
+            <p>{{ dish.name }} - {{ dish.price }} <a href={% url "add_to_order" dish.restaurant.id dish.id %}?page={{ request.path }}>Agregar</a></p>
         {% endfor %}
+    {% else %}
+        <p>Este restaurant no tiene platillos disponibles.</p>
     {% endif %}
 {% endblock content %}

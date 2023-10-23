@@ -1,32 +1,30 @@
 {% load static %}
 
 <header data-bs-theme="dark">
-    <div class="text-bg-dark collapse" id="navbarHeader" style="">
-        <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-            <h4>About</h4>
-            <p class="text-body-secondary">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-            <h4>Contact</h4>
-            <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-            </div>
-        </div>
-        </div>
-    </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-        <a href="{% url 'restaurants' %}" class="navbar-brand d-flex align-items-center">
-            <strong>Virtual Kiosk</strong>
-        </a>
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <a href="{% url 'restaurants' %}" class="navbar-brand d-flex align-items-center">
+                <strong>Virtual Kiosk</strong>
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <div class="text-bg-dark collapse" id="navbarHeader" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-mdAbout-7 py-4">
+                    <a href={% url "restaurants" %}>Restaurantes</a>
+                    {% if user.is_authenticated %}
+                        <h4>{{ user.username }}</h4>
+                        <a href="{% url "order_detail" request.session.order_id%}">Tu orden ({{ request.session.order_count }})</a>
+                        <a href={% url "logout" %}>Cerrar sesion</a>
+                    {% else %}
+                        <a href={% url "login" %}>Login</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </header>
