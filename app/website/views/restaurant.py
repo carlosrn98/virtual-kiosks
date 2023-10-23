@@ -1,5 +1,4 @@
-from django.views.generic import ListView, DeleteView
-from django.http import HttpResponse
+from django.views.generic import ListView
 from website.models import Restaurant, Dish
 from django.shortcuts import render
 

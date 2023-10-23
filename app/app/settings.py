@@ -30,6 +30,7 @@ DEBUG=True
 # ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+CRISPY_TEMPLATE_PACK="bootstrap4"
 
 # Application definition
 
@@ -41,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website.apps.WebsiteConfig',
-    #"bootstrap5",
+    'crispy_forms',
+    'register.apps.RegisterConfig',
+    'crispy_bootstrap4',
     #'django_jinja',
     # 'django_extensions',
 ]

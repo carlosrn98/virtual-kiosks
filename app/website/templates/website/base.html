@@ -3,7 +3,8 @@
     <head>
         {% load static %}
         <title>Virtual Kiosks</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'website/css/bootstrap.css' %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static 'website/css/bootstrap.css' %}"></link>
+        <script src="{% static 'website/js/bootstrap.min.js' %}"></script>  
     </head>
         
     {% block navbar %}
@@ -71,8 +72,6 @@
             </div>
         </div>
 
-        
-        
         </main>
         {% block footer %}
             {% include "website/includes/footer.html" %}

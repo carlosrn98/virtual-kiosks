@@ -1,0 +1,29 @@
+{% extends "website/base.html" %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+
+    
+
+    {% comment %} {% if next %}
+        {% if user.is_authenticated %}
+            <p>
+        {% endif %}
+    {% endif %} {% endcomment %}
+
+    <div class="login">
+        <form method="POST" class="form-group">
+	        {% csrf_token %}
+            <label for="chk" aria-hidden="true">Login</label>
+            <input type="text" name="username" placeholder="Username" required="">
+            <input type="password" name="pswd" placeholder="Password" required="">
+            <button name="sign-in" class="btn btn-success">Login</button>
+        </form>
+        <a href={% url "register" %}>Registrarse</a>
+        {% if messages %}  
+            {% for message in messages %}  
+                <p>{{ message }}</p>  
+            {% endfor %}  
+        {% endif %}
+    </div> 
+{% endblock %}
