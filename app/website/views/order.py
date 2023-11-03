@@ -20,10 +20,25 @@ class OrderView:
 
     @login_required
     def order_detail(request, pk):
+        print(f"PK {pk}")
         order_data = OrderDish.objects \
-                    .select_related('order', 'dish', 'status')
+                    .select_related('order', 'dish', 'status') \
+                    .filter(order_id=pk)
         total_price = sum(row.dish.price for row in order_data)
         context = {"order_data": order_data,
                    "total": total_price,
                    "status": order_data[0].status.name}
         return render(request, "website/order/order_detail.html", context)
+
+    @login_required
+    def remove_from_order(request, *args, **kwargs):
+        print(kwargs)
+        order_dish = OrderDish.objects.get(id=int(kwargs["orderdish_id"]))
+        order_dish.delete()
+
+        if request.session["order_count"] > 0:
+            request.session["order_count"] = request.session["order_count"] - 1
+        
+        messages.success(request, "Platillo eliminado exitosamente")
+
+        return redirect(request.GET.get('page'))

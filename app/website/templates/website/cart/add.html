@@ -1,11 +1,6 @@
 {% extends "website/base.html" %}
 
 {% block content %}
-    {% if messages %}  
-        {% for message in messages %}  
-            <p>{{ message }}</p>  
-        {% endfor %}  
-    {% endif %}
     <form method="post">
         {% csrf_token %}
         <input type="submit">

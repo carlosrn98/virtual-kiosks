@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group
 from website.models import Order, OrderDish, OrderStatus
 
 def register(request):
@@ -28,6 +29,10 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            
+            if is_chef(user):
+                return redirect("/client/chef")
+
             create_order(request, user)
             return redirect('/client')
         else:
@@ -50,3 +55,11 @@ def create_order(request, user):
     print(f"COUNT: {order_dish}, ORDER ID: {order.id}")
     request.session["order_count"] = order_dish
     request.session["order_id"] = order.id
+
+def is_chef(user):
+    try:
+        user.groups.get(name="chef")
+        return True
+    except Group.DoesNotExist as e:
+        print("Error: Group 'chef' does not exist!")
+        return False

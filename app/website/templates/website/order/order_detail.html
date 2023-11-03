@@ -1,16 +1,21 @@
 {% extends "website/base.html" %}
 
 {% block content %}
-    <h1>Tu orden contiene {{ request.session.order_count }} platillos:
+    <h1>Tu orden contiene {{ request.session.order_count }} platillos:</h1>
     {% if order_data %}
         {% for row in order_data %}
             <ul>
-                <li>{{ row.dish.name }} - {{ row.dish.price }}</li>
+                <li>{{ row.dish.name }} - {{ row.dish.price }} | <a href={% url "remove_from_order" row.order.id row.id %}?page={{ request.path }}>Quitar</a></li>
             </ul>
         {% endfor %}
         <p>Total: {{ total }}</p>
         <p>Estatus: {{ status }}
     {% else %}
         <p>No hay platillos en tu orden.</p>
+    {% endif %}
+    {% if messages %}  
+        {% for message in messages %}  
+            <p>{{ message }}</p>  
+        {% endfor %}  
     {% endif %}
 {% endblock content %}

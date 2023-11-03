@@ -1,0 +1,29 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+     <h1>Platillos por hacer: </h1>
+    {% if data %}
+        {% for row in data %}
+            <ul>
+                <li>
+                    {{ row.dish.name }} - {{row.order.created_at}} - {{ row.status.name }} | 
+                    {% if row.status_id == 1 %}
+                        <a href={% url "orderdish_status_update" row.id 2 %}>Aceptar</a> <a href={% url "orderdish_status_update" row.id 3 %}>Cancelar</a>
+                    {% elif row.status_id == 4 %}
+                          
+                    {% else %}
+                        <a href={% url "orderdish_status_update" row.id 4 %}>Terminada</a>
+                    {% endif %}
+                </li>
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>No hay platillos por hacer</p>
+    {% endif %}
+
+    {% if messages %}  
+        {% for message in messages %}  
+            <p>{{ message }}</p>  
+        {% endfor %}  
+    {% endif %}
+{% endblock content %}
