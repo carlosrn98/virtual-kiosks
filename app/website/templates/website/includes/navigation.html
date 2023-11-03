@@ -18,8 +18,13 @@
                     <a href={% url "restaurants" %}>Restaurantes</a>
                     {% if user.is_authenticated %}
                         <h4>{{ user.username }}</h4>
+
+                        {% if not user.is_staff %}
                         <a href="{% url "order_detail" request.session.order_id%}">Tu orden ({{ request.session.order_count }})</a>
+                        {% endif %}
+
                         <a href={% url "logout" %}>Cerrar sesion</a>
+
                     {% else %}
                         <a href={% url "login" %}>Login</a>
                     {% endif %}
