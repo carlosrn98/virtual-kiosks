@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import mimetypes
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +26,10 @@ SECRET_KEY = 'django-insecure-7uv)ja4cz4i@tavmd^8--o13-470xmj3ag(1es50j=--11@2(d
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get("DEBUG", default=0))
 DEBUG=True
+
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/js", ".js", True)
+
 
 # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 # ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
@@ -130,9 +135,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/statics/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = ( os.path.join(BASE_DIR, '/usr/src/app/website/statics'), )
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, '/usr/src/app/website/static'), )
 # STATICFILES_DIRS =[
 #     os.path.join(BASE_DIR,'website/statics')
 # ]
