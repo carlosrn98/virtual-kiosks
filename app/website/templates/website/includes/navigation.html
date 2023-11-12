@@ -3,33 +3,104 @@
 <header data-bs-theme="dark">
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a href="{% url 'restaurants' %}" class="navbar-brand d-flex align-items-center">
+
+            <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
                 <strong>Virtual Kiosk</strong>
             </a>
+          
+
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"></use></svg>
+         
+                
+              </a>
+            
+              <span style=" color: rgb(255, 255, 255);">
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >
+                <i class="bi bi-cart4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                
+                </i>
+                </button>
+               </span>
+               <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasRightLabel">
+                </li>
+                {% if user.is_authenticated %}
+                <i class="bi bi-file-person"></i> {{ user.username }}
+
+                {% else %}
+                    Sesion no inciada
+                {% endif %}
+
+
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    
+                    {% if user.is_authenticated %}
+
+                    {% block content %}
+                        <h5>Tu orden contiene {{ request.session.order_count }} platillos: </h5>
+                        {% if order_data %}
+                            {% for row in order_data %}
+                                <ul>
+                                    <li>{{ row.dish.name }} - {{ row.dish.price }}</li>
+                                </ul>
+                            {% endfor %}
+                            <p>Total: {{ total }}</p>
+                            <p>Estatus: {{ status }}
+                        {% else %}
+                            <p>No hay platillos en tu orden.</p>
+                        {% endif %}
+                    {% endblock content %}
+                    
+                    <a href={% url "logout" %}>Cerrar sesion</a>
+                {% else %}
+                    
+                    <a href={% url "login" %}>Login</a>
+                    
+                {% endif %}
+                </div>
+              </div>
+
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
+        
         </div>
     </div>
     <div class="text-bg-dark collapse" id="navbarHeader" style="">
         <div class="container">
-            <div class="row">
+            <div class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <div class="col-sm-8 col-mdAbout-7 py-4">
-                    <a href={% url "restaurants" %}>Restaurantes</a>
+                <ul class="list-unstyled">
+                    <li class="nav-item">
+                    <a class="nav-link" href={% url "restaurants" %}>Restaurantes</a>
+                    </li>
                     {% if user.is_authenticated %}
-                        <h4>{{ user.username }}</h4>
 
+                        <li class="nav-item">
                         {% if not user.is_staff %}
-                        <a href="{% url "order_detail" request.session.order_id%}">Tu orden ({{ request.session.order_count }})</a>
+                            <a class="nav-link" href="{% url "order_detail" request.session.order_id %}">Tu orden ({{ request.session.order_count }})</a>
                         {% endif %}
-
-                        <a href={% url "logout" %}>Cerrar sesion</a>
-
+                        </li>
+                        <h4><i class="bi bi-file-person"></i> {{ user.username }}</h4>
+                        <li class="nav-item"><a class="nav-link" href={% url "logout" %}>Cerrar sesion</a></li>
                     {% else %}
-                        <a href={% url "login" %}>Login</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href={% url "login" %}>Login</a>
+                        </li>
                     {% endif %}
+                </ul>
                 </div>
             </div>
         </div>
     </div>
+            
+    
+
+    <link rel="stylesheet" href="{% static 'website/css/icons/bootstrap-icons.css' %}">
 </header>

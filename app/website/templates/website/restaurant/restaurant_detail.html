@@ -6,17 +6,42 @@
             <p>{{ message }}</p>  
         {% endfor %}  
     {% endif %}
-    {% if dishes %}
+<div class="container my-5">
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">{{ restaurant.name }}</h1>
+      <p class="col-md-8 fs-4">
+        Ofrece un gran numero de platillos para que puedas difutar con toda tu familia, no pierdas la oportuniad de disfrutar una gran comida
+      </p>
+
+      <a href={% url "restaurants" %}><button class="btn btn-primary btn-lg" type="button">Regresar a restaurantes</button></a>
+    </div>
+  </div>
+
+
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <div class="row align-items-md-stretch">
+
+    
+
+        {% if dishes %}
         {% for dish in dishes %}
-            <h1>{{ dish.restaurant.name }}</h1>
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>{{ dish.restaurant.name }}</h2>
             
-            {% if user.is_authenticated and not user.is_staff%}
-                <p>{{ dish.name }} - {{ dish.price }} <a href={% url "add_to_order" dish.restaurant.id dish.id %}?page={{ request.path }}>Agregar</a></p>
-            {% else %}
-                <p>{{ dish.name }} - {{ dish.price }}</p>
-            {% endif %}
+            <p>{{ dish.name }} </p>
+            <p>Precio: {{ dish.price }}</p>
+                        
+            <a href={% url "add_to_order" dish.restaurant.id dish.id %}?page={{ request.path }}><button class="btn btn-outline-light" type="button">Agregar al carrito <i class="bi bi-cart-plus-fill"></i></button></a>
+          </div>
+        </div>
         {% endfor %}
     {% else %}
         <p>Este restaurant no tiene platillos disponibles.</p>
     {% endif %}
+
+</div>
+</div>
+</div>
 {% endblock content %}
