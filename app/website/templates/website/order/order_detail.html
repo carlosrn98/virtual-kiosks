@@ -1,16 +1,41 @@
-{% extends "website/base.html" %}
+         {% extends "website/base.html" %}    
 
 {% block content %}
-    <h1>Tu orden contiene {{ request.session.order_count }} platillos:
+
+<div class="my-5">
+    <div class="p-5 text-center bg-body-tertiary">
+      <div class="container py-5">
+       
+    <h1 class="text-body-emphasis">Tu orden contiene {{ request.session.order_count }} platillos: </h1>
     {% if order_data %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Plato</th>
+              <th scope="col">Precio</th>
+            </tr>
+          </thead>
+        <tbody>
         {% for row in order_data %}
-            <ul>
-                <li>{{ row.dish.name }} - {{ row.dish.price }}</li>
-            </ul>
+            <tr>
+                <th scope="row">#</th>
+                <td>{{ row.dish.name }}</td>
+                 <td>{{ row.dish.price }}</td>
+            </tr>
         {% endfor %}
+
+        </tbody>
+          </table>
         <p>Total: {{ total }}</p>
         <p>Estatus: {{ status }}
     {% else %}
         <p>No hay platillos en tu orden.</p>
     {% endif %}
+
+    </p>
+    </div>
+    </div>
+    </div>
+
 {% endblock content %}

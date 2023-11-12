@@ -1,19 +1,38 @@
 {% extends "website/base.html" %}
-
+{% load static %}
 {% block title %}Crea una cuenta{% endblock %}
 
 {% block content %}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+	<div class="p-5 text-center bg-body-tertiary rounded-3">
+		
+		<img class="img-fluid" src="{% static "website/img/VKL.png" %}" alt="Logo" >
+
+	
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-md-10 mx-auto col-lg-5">
+  
 	{% load crispy_forms_tags %}
 
     <form method="POST" class="form-group">
 	{% csrf_token %}
 	{{ form|crispy }}
-	<button type="submit" class="btn btn-success">Registrar</button>
+	<button type="submit" class="btn btn-lg btn-success">Registrarte</button>
 	{% if messages %}  
 		{% for message in messages %}  
 			<p>{{ message }}</p>  
 		{% endfor %}  
 	{% endif %}  
     </form>
-	<a href={% url "login" %}>Login</a>
+	<hr class="my-4">
+	<a href={% url "login" %}>
+	<button class="btn btn-success">Login 
+
+	</button>
+	</a>
+		</div>
+	</div>
+	</div>
+</div>
 {% endblock %}
