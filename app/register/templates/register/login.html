@@ -41,4 +41,55 @@
         </div>
     </div>
     
+<<<<<<< HEAD
+=======
+
+    {% comment %} {% if next %}
+        {% if user.is_authenticated %}
+            <p>
+        {% endif %}
+    {% endif %} {% endcomment %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
+            
+            <img class="img-fluid" src="{% static "website/img/VKL.png" %}" alt="Logo" >
+    
+        
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-md-10 mx-auto col-lg-5">
+            <div class="login"> 
+                <form method="POST" class="form-group">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                    <label for="chk" class="form-label" aria-hidden="true">Login</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="chk" class="form-label" aria-hidden="true">Password</label>
+                        <input type="password" class="form-control" name="pswd" placeholder="Password" required="">
+                    </div>
+                    
+                    <button name="sign-in" class="btn btn-success">Login</button>
+                    
+                </form>
+                <hr class="my-4">
+                <a href={% url "register" %}>
+                    <button class="btn btn-success">
+                        Registrarse 
+                    </button>
+                </a>
+                {% if messages %}  
+                    {% for message in messages %}  
+                        <p>{{ message }}</p>  
+                    {% endfor %}  
+                {% endif %}
+            </div> 
+
+
+            </div>
+        </div>
+        </div>
+    </div>
+    
+>>>>>>> 21aaeb3d028584258aa7cb206fcde40e8b20687f
 {% endblock %}
