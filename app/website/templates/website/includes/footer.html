@@ -1,11 +1,41 @@
 {% load static %}
 <footer class="text-body-secondary py-5">
-    <div class="container">
-        <p class="float-end mb-1">
-        <a href="#">Regresar arriba</a>
-        </p>
-        <p class="mb-1"> Conoce mas acerca de nosotros</p>
-        <p class="mb-1">No me mates porfiii :c</p>
-        
-    </div>
+
+    <div class="row">
+        <div class="col-12 col-md">
+          <small class="d-block mb-3 text-body-secondary">Virtual Kiosk 2023</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Cuenta</h5>
+          <ul class="list-unstyled text-small">             
+            {% if user.is_authenticated %}
+                {{ user.username }} 
+                <a href={% url "logout" %}>Cerrar sesion</a>
+
+            {% else %}
+            <a href={% url "login" %}>Login</a>
+            {% endif %}</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Restaurantes</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="link-secondary text-decoration-none" href={% url "restaurants" %}>Restaurantes</a></li>
+              <li><a class="link-secondary text-decoration-none" href="{% url 'index' %}">Incio</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Government</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Gaming</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Acerca de nosotros</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="link-secondary text-decoration-none" href="#">Facebook</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Web</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Nuestros aliados</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Trabaja con nostros</a></li>
+            </ul>
+          </div>
+      </div>
+
+
 </footer> 
