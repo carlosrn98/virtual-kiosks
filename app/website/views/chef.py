@@ -14,11 +14,11 @@ class ChefView:
         return render(request, "website/chef/order_detail.html", context)
 
     def get_order_dishes_by_restaurant(user_id):
-        employee = Employee.objects.select_related("restaurant").filter(user__id=user_id)
+        employee = Employee.objects.select_related("restaurant").filter(user__id=user_id).first()
         order_dish = OrderDish.objects.select_related("dish") \
                                       .select_related("status") \
                                       .select_related("dish__restaurant") \
-                                      .filter(dish__restaurant=employee[0].restaurant)
+                                      .filter(dish__restaurant=employee.restaurant)
         
         return order_dish
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q
 from .forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
@@ -10,7 +11,6 @@ def register(request):
     print(f"Mtd {request.method}")
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        print(f"LLEGO: {request.body} VALID: {form.is_valid()}")
         if form.is_valid():
             form.save()
             return redirect("/login")
@@ -45,15 +45,14 @@ def logout_user(request):
     return redirect('/client')
 
 def create_order(request, user):
-    order = Order.objects.filter(customer=user, status__id__lt=3).first()
+    order = Order.objects.get(Q(status__id=1) | Q(status__id=2) | Q(status_id=4), customer=user)
     order_status = OrderStatus.objects.get(id=2)
 
     if not order:
         order = Order.objects.create(customer=user, status=order_status)
     
-    order_dish = OrderDish.objects.filter(order=order).count()
-    print(f"COUNT: {order_dish}, ORDER ID: {order.id}")
-    request.session["order_count"] = order_dish
+    order_dish_count = OrderDish.objects.filter(order=order).count()
+    request.session["order_count"] = order_dish_count
     request.session["order_id"] = order.id
 
 def is_chef(user):

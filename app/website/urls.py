@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, restaurant, order, chef
+from .views import home, restaurant, order, chef, purchase
 
 urlpatterns = [
     path("", home.index, name="index"),
@@ -9,5 +9,9 @@ urlpatterns = [
     path("orders/<int:order_id>/dish/<int:orderdish_id>/remove", order.OrderView.remove_from_order, name="remove_from_order"),
     path("orders/<int:pk>", order.OrderView.order_detail, name="order_detail"),
     path("chef/", chef.ChefView.chef_details, name="chef_detail"),
-    path("chef/order-dish/<int:orderdish_id>/status/<int:status_id>/update", chef.ChefView.update_dish_status, name="orderdish_status_update")
+    path("chef/order-dish/<int:orderdish_id>/status/<int:status_id>/update", chef.ChefView.update_dish_status, name="orderdish_status_update"),
+    path("success/", purchase.Purchase.success, name="successful_purchase"),
+    path("cancel/", purchase.Purchase.cancel, name="cancel_purchase"),
+    path("create-checkout-session/<int:order_id>", purchase.Purchase.post, name="create_checkout"),
+    path("webhooks/stripe", purchase.StripeWebhook.post, name="stripe_webhook")
 ]
