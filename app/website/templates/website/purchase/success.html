@@ -1,0 +1,10 @@
+{% extends "website/base.html" %}
+{% block title %} Cancelar {% endblock title %}
+{% block content %}
+<div class="alert alert-info" role="alert">
+    Gracias por tu compra!
+    <a href="{% url 'restaurants' %}">
+        Ve a ver mas platillos!
+    </a>
+  </div>
+{% endblock content %}

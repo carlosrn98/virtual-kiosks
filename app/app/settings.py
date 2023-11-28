@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import mimetypes
 from pathlib import Path
+from decouple import config
+
+# Stripe
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+BACKEND_DOMAIN = config("BACKEND_DOMAIN")
+PAYMENT_SUCCESS_URL = config("PAYMENT_SUCCESS_URL")
+PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,8 +59,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'register.apps.RegisterConfig',
     'crispy_bootstrap4',
-    #'django_jinja',
-    # 'django_extensions',
 ]
 
 MIDDLEWARE = [

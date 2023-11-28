@@ -1,46 +1,58 @@
-         {% extends "website/base.html" %}    
+{% extends "website/base.html" %}    
 
+{% block script %} <script src="https://js.stripe.com/v3/"></script> {% endblock script%} 
 {% block content %}
 
 <div class="my-5">
     <div class="p-5 text-center bg-body-tertiary">
-      <div class="container py-5">
+        <div class="container py-5">
        
-    <h1 class="text-body-emphasis">Tu orden contiene {{ request.session.order_count }} platillos: </h1>
-    {% if order_data %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Platillo</th>
-              <th scope="col">Precio</th>
-            </tr>
-          </thead>
-        <tbody>
-        {% for row in order_data %}
-            <tr>
-                <th scope="row">#</th>
-                <td>{{ row.dish.name }}</td>
-                 <td>{{ row.dish.price }}</td>
-            </tr>
-        {% endfor %}
+            <h1 class="text-body-emphasis">Tu orden contiene {{ request.session.order_count }} platillos: </h1>
+            {% if order_data %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in order_data %}
+                    <tr>
+                        <td>{{ row.dish.name }}</td>
+                        <td>{{ row.dish.price }}</td>
+                        <td>{{ row.status.name }} - {{ row.status.id }}</td>
+                        {% if row.status.id == 1 %}
+                            <td><a href={% url "remove_from_order" row.order.id row.id %}?page={{ request.path }}>Quitar</a></td>
+                        {% else %}
+                            <td>Platillo ya no se puede cancelar</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
 
-        </tbody>
-          </table>
-        <p>Total: {{ total }}</p>
-        <p>Estatus: {{ status }}
-    {% else %}
-        <p>No hay platillos en tu orden.</p>
-    {% endif %}
-    {% if messages %}  
-        {% for message in messages %}  
-            <p>{{ message }}</p>  
-        {% endfor %}  
-    {% endif %}
+                </tbody>
+            </table>
+            <p>Total: {{ total }}</p>
+            {% if is_order_ready_to_pay %}
+                <form action={% url "create_checkout" order_id %} method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Pagar</button>
+                </form>
+            {% endif %}
+            
+            {% else %}
+                <p>No hay platillos en tu orden.</p>
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}  
+                    <p>{{ message }}</p>  
+                {% endfor %}  
+            {% endif %}
 
-    </p>
+        </div>
     </div>
-    </div>
-    </div>
+</div>
 
 {% endblock content %}
