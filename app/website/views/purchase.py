@@ -22,7 +22,7 @@ class Purchase:
             item = {
                 "price_data": {
                     "currency": "mxn",
-                    "unit_amount": int(int(order_dish.dish.price) * 10),
+                    "unit_amount": int(int(order_dish.dish.price) * 100),
                     "product_data": {
                         "name": order_dish.dish.name,
                         "description": order_dish.dish.description,

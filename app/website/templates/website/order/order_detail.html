@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ row.dish.name }}</td>
                         <td>{{ row.dish.price }}</td>
-                        <td>{{ row.status.name }} - {{ row.status.id }}</td>
+                        <td>{{ row.status.name }}</td>
                         {% if row.status.id == 1 %}
                             <td><a href={% url "remove_from_order" row.order.id row.id %}?page={{ request.path }}>Quitar</a></td>
                         {% else %}
@@ -45,10 +45,13 @@
             {% else %}
                 <p>No hay platillos en tu orden.</p>
             {% endif %}
+            
             {% if messages %}
+                <div class="alert alert-info" role="alert">
                 {% for message in messages %}  
                     <p>{{ message }}</p>  
                 {% endfor %}  
+                </div>
             {% endif %}
 
         </div>
