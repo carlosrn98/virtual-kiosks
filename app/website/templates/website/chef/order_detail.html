@@ -1,6 +1,7 @@
 {% extends "website/base.html" %}
-
+{% load static %}
 {% block content %}
+<!--
      <h1>Platillos por hacer: </h1>
     {% if data %}
         {% for row in data %}
@@ -8,7 +9,7 @@
                 <li>
                     {{ row.dish.name }} - {{row.order.created_at}} - {{ row.status.name }} | 
                     {% if row.status_id == 1 %}
-                        <a href={% url "orderdish_status_update" row.id 2 %}>Aceptar</a> <a href={% url "orderdish_status_update" row.id 3 %}>Cancelar</a>
+                        <a href={% url "orderdish_status_update" row.id 2 %}>Aceptado</a> <a href={% url "orderdish_status_update" row.id 3 %}>Cancelar</a>
                     {% elif row.status_id == 4 %}
                           
                     {% else %}
@@ -26,4 +27,77 @@
             <p>{{ message }}</p>  
         {% endfor %}  
     {% endif %}
+
+        -->
+
+        <div class="py-2 text-center">
+            <img class="d-block mx-auto mb-4" src="{% static "website/img/VKL.png" %}" alt="" width="72" height="57">
+            <h2>Restaurant name</h2>
+            <p>
+
+                `
+Bienvenido al inicio de la página de pedidos de la cocina del restaurante. Aquí podrás encontrar información útil sobre lospedidos actuales asi como aceptarlos cancletarlos o finalizarlos. 
+Gracias por formar parte de nuestro equipo.
+            </p>
+        </div>
+
+        <div class="my-5">
+            <div class="p-5 text-center bg-body-tertiary">
+              <div class="container py-5">
+               
+            <h1 class="text-body-emphasis"> Platillos pendientes 
+
+                
+            </h1>
+            <br>
+            <br>
+            {% if data %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Platillo</th>
+                      <th scope="col">Hora de pedido</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                {% for row in data %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ row.dish.name }} </td>
+                         <td>{{ row.order.created_at }}</td>
+                         <td> {{ row.status.name }}</td>
+                         <td>
+                            {% if row.status_id == 1 %}
+                                <div class="btn-group">
+                                    <a href={% url "orderdish_status_update" row.id 2 %} class="btn btn-success">Aceptar</a> 
+                                    <a href={% url "orderdish_status_update" row.id 3 %} class="btn btn-danger">Cancelar</a>
+                                </div>    
+                            {% elif row.status_id == 4 %}
+                                  
+                            {% else %}
+                                <a href={% url "orderdish_status_update" row.id 4 %} class="btn btn-success">Terminada</a>
+                            {% endif %}
+                         </td>
+                    </tr>
+                {% endfor %}
+        
+                </tbody>
+                  </table>
+            {% else %}
+                <p>No hay platillos en tu orden.</p>
+            {% endif %}
+            {% if messages %}  
+                {% for message in messages %}  
+                    <p>{{ message }}</p>  
+                {% endfor %}  
+            {% endif %}
+        
+            </p>
+            </div>
+            </div>
+          </div>
 {% endblock content %}
+
