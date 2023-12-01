@@ -2,11 +2,31 @@
 {% load static %}
 
 {% block content %}
-<section class="container py-5 mt-5 mb-xl-3 mb-xxl-5t">
+<!--
+<style>
+    body {
+      position: relative; 
+    }
+    #secton1 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
 
-    <div class="col-lg-6 d-flex flex-column mb-4 mb-lg-0 pb-sm-3 pb-lg-0">
+</style>
+-->
+<style>
+    body {
+      position: relative; 
+    }
+    .carousel-item {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    #section1 {padding-top:50px;color: #fff; background-color: #fdfd96 ;}
+
+</style>
+
+<section>
+    <div  class="p-4 p-md-5 mb-4 rounded text-body-emphasis" id="section1">
+    <div class="col-lg-2 d-flex flex-column mb-4 mb-lg-0 pb-sm-3 pb-lg-0">
         <h1 class="display-1 text-uppercase fw-bold mt-auto mb-2">Virtual <span class="fw-normal">Kiosk</span> ¿Hambre?</h1>
-        <div class="d-flex align-items-center py-4 py-lg-5"><a class="btn btn-lg btn-primary rounded-0 me-2 me-sm-3" href="#">Let's work together</a>
+        <div class="d-flex align-items-center py-4 py-lg-5"><a class="btn btn-lg btn-light rounded-0 me-2 me-sm-3" href="{% url "restaurants" %}">Comienza a pedir</a>
         </div>
         <ul class="nav mt-auto mx-n2 pt-sm-3 pt-lg-0">
           <li class="nav-item me-3"><a class="nav-link p-2" href="#">instagram</a></li>
@@ -16,39 +36,52 @@
       </div>
       <hr class="hr" />
       <section class="page-section" id="services">
-        <div class="container">
-            CARRUSEL
-        </div>
     </section>
-      
+     
+    </div>
+</section>
+<section class="wrapper style3 container special">
+    <header class="major">
+        <h2>Pide <strong>ahora</strong></h2>
+      </header>
+    <div class="row">
+        <div class="6u">
+          <section> 
+            <header>
+              <h3>El mejor lugar para comer</h3>
+            </header>
+            <p>Disfruta de una gran variedad de restaurantes.</p>
+          </section>
+        </div>
+      </div>
 
-  <!--  <div id="myCarousel" class="carousel slide mb-6 pointer-event" data-bs-ride="carousel">
+</section>
+<section class="container py-2 mt-5 mb-xl-3 mb-xxl-3t">
+
+    <div id="myCarousel" class="carousel carousel-dark slide mb-6 pointer-event" data-bs-ride="carousel">
         <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="active" aria-current="true"></button>
+
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class=""></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
         </div>
         <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="{% static "website/img/VKL.png" %}" class="d-block w-100" alt="IM1"  height="590"> 
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="#" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> 
             
             <div class="container">
   
-            <div class="carousel-caption text-start">
+            <div class="carousel-caption d-none d-md-block">
                 <h1>Tiendas</h1>
-                <p class="opacity-75">Comienza a pedir en tu restaurante favorito</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Aqui</a></p>
+                <p class="opacity-20">Conoce nuestros resurantes acontinuacion</p>
+                
             </div>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static "website/img/VKL.png" %}" class="d-block w-100" alt="IM1"  height="590">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="#" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> 
             <div class="container">
-            <div class="carousel-caption">
-                <h1>Consulta facilmente tu cuenta</h1>
-                <p><a class="btn btn-lg btn-primary" href="#">Toca aqui para saber mas</a></p>
+            <img src="{% static "website/img/VKL.png" %}"  alt="IM1"  height="300" width="400">
+
+            <div class="carousel-caption d-none d-md-block">
             </div>
             </div>
         </div>
@@ -61,7 +94,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
         </button>
-    </div> -->
+    </div> 
 </section>
 
 {% endblock %}
