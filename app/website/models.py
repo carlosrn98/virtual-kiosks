@@ -41,4 +41,7 @@ class Payment(models.Model):
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.restaurant.name}"
 # g0od-p@ssw0rd
