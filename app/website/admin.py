@@ -12,6 +12,32 @@ from django import forms
 admin.site.site_title = "Virtual Kiosks"
 admin.site.site_header = "VK Admin"
 
+try:
+    admin.site.unregister(User)
+except:
+    pass
+
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    def get_form(self, request: Any, obj: Any | None = ..., change: bool = ..., **kwargs: Any) -> Any:
+        form = super().get_form(request, obj, **kwargs)
+        
+        if not request.user.is_superuser:
+            disabled_fields = {"is_superuser", "user_permissions", "groups", "is_staff", "is_active", "username", "email", "password"}
+            for f in disabled_fields:
+                if f in form.base_fields:
+                    form.base_fields[f].disabled = True
+        
+        return form
+    
+    def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:
+        if request.user.is_superuser:
+            return super().get_queryset(request)
+        employee = Employee.objects.filter(user__id=request.user.id).first()
+        qs = super().get_queryset(request).filter(is_staff=False)
+        
+        return qs
+
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
