@@ -10,7 +10,7 @@ class RestaurantList(ListView):
 
 class RestaurantDetail:
     def handle_request(request, pk):
-        dishes_from_restaurant = Dish.objects.select_related('restaurant').filter(id=pk)
+        dishes_from_restaurant = Dish.objects.select_related('restaurant').filter(restaurant_id=pk)
         context = {"dishes": dishes_from_restaurant}
         return render(request, "website/restaurant/restaurant_detail.html", context=context)
     
