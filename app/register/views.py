@@ -48,7 +48,11 @@ def logout_user(request):
     return redirect('/client')
 
 def create_order(request, user):
-    order = Order.objects.filter(Q(status__id=1) | Q(status__id=2) | Q(status_id=4), customer=user).latest("created_at")
+    try:
+        order = Order.objects.filter(Q(status__id=1) | Q(status__id=2) | Q(status_id=4), customer=user).latest("created_at")
+    except Order.DoesNotExist as e:
+        print(f"There's no order. {e}")
+        order = None
     order_status = OrderStatus.objects.get(id=2)
 
     if not order:

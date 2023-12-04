@@ -9,8 +9,12 @@ class ChefView:
     @has_group("chef")
     def chef_details(request):
         print(f"{request}")
-        data = ChefView.get_order_dishes_by_restaurant(request.user.id)
-        context = {"data": data}
+        try:
+            data = ChefView.get_order_dishes_by_restaurant(request.user.id)
+            context = {"data": data}
+        except Exception as e:
+            print(f"Error: {e}")
+            context = {"data": None}
         return render(request, "website/chef/order_detail.html", context)
 
     def get_order_dishes_by_restaurant(user_id):
