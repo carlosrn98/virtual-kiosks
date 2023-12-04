@@ -30,7 +30,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
 
-            if user.is_staff:
+            if user.is_staff and "admin" in user.get_username():
                 return redirect("/admin")
             
             if is_chef(user):
