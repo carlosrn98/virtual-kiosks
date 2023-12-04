@@ -11,10 +11,8 @@
 </head>
         <div class="py-2 text-center">
             <img class="d-block mx-auto mb-4" src="{% static "website/img/VKL.png" %}" alt="" width="72" height="57">
-            <h2>Restaurant name</h2>
+            <h2>Platillos</h2>
             <p>
-
-                `
 Bienvenido al inicio de la página de pedidos de la cocina del restaurante. Aquí podrás encontrar información útil sobre lospedidos actuales asi como aceptarlos cancletarlos o finalizarlos. 
 Gracias por formar parte de nuestro equipo.
             </p>
@@ -66,7 +64,7 @@ Gracias por formar parte de nuestro equipo.
                 </tbody>
                   </table>
             {% else %}
-                <p>No hay platillos en tu orden.</p>
+                <p>No hay platillos por hacer.</p>
             {% endif %}
             {% if messages %}  
                 {% for message in messages %}  
