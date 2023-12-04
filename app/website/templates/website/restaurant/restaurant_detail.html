@@ -20,7 +20,7 @@
 
     
 
-        {% if dishes %}
+      {% if dishes %}
         {% for dish in dishes %}
         <div class="col-md-6">
           <div class="h-100 p-5 text-bg-dark rounded-3">
@@ -31,12 +31,13 @@
                         
             <a href={% url "add_to_order" dish.restaurant.id dish.id %}?page={{ request.path }}><button class="btn btn-outline-light" type="button">Agregar al carrito <i class="bi bi-cart-plus-fill"></i></button></a>
           </div>
+    </div>
+
         {% endfor %}
     {% else %}
         <p>Este restaurant no tiene platillos disponibles.</p>
     {% endif %}
 
-    </div>
   </div>
   {% if messages %}
     <div class="alert alert-info" role="alert">
