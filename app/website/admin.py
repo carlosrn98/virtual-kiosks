@@ -8,6 +8,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.db import transaction
 from django.contrib.auth.hashers import make_password
 from django import forms
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 admin.site.site_title = "Virtual Kiosks"
 admin.site.site_header = "VK Admin"
@@ -22,7 +24,7 @@ class CustomUserAdmin(UserAdmin):
     def get_form(self, request: Any, obj: Any | None = ..., change: bool = ..., **kwargs: Any) -> Any:
         form = super().get_form(request, obj, **kwargs)
         
-        if not request.user.is_superuser:
+        if not request.user.is_superuser and obj:
             disabled_fields = {"is_superuser", "user_permissions", "groups", "is_staff", "is_active", "username", "email", "password"}
             for f in disabled_fields:
                 if f in form.base_fields:
@@ -34,9 +36,23 @@ class CustomUserAdmin(UserAdmin):
         if request.user.is_superuser:
             return super().get_queryset(request)
         employee = Employee.objects.filter(user__id=request.user.id).first()
-        qs = super().get_queryset(request).filter(is_staff=False)
+        qs = super().get_queryset(request).filter()
         
         return qs
+    
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        if "admin" in request.user.username:
+            obj.is_staff = True
+
+        super().save_model(request, obj, form, change)
+
+@receiver(post_save, sender=User)
+def add_chef_group(sender, instance, created, **kwargs):
+    if "chef" in instance.username and created:
+        print("Chef triggered")
+        chef_group = Group.objects.get(name="chef")
+        instance.groups.add(chef_group)
+        
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
