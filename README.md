@@ -1,5 +1,5 @@
 # virtual-kiosks
-Graduation project.
+
 
 ## Development
 ### Install Docker and docker compose
